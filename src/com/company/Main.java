@@ -12,20 +12,16 @@ import static com.company.Constants.*;
 public class Main {
     public static void main(String[] args) throws SQLException {
 
-        // Initialise connection
-        Connection conn = new ConnectDB().getConnection();
-        Statement stmt =  conn.createStatement();
-
         // Read data from file and store in database
-        new ReadInput(stmt);
+        new ReadInput();
 
         // Solving all scenarios
         SolveScenarios solved = new SolveScenarios();
 
-        Map<Object,Object> matchesPlayedPerSeason = solved.executeQuery(GET_SEASON_COUNT_SQL,stmt);
-        Map<Object,Object> matchesWon = solved.executeQuery(GET_WINNER_COUNT_SQL,stmt);
-        Map<Object,Object> extraRuns = solved.executeQuery(GET_EXTRA_RUNS_SQL,stmt);
-        Map<Object,Object> economicBowlers = solved.executeQuery(GET_ECONOMIC_BOWLER_SQL,stmt);
+        Map<Object,Object> matchesPlayedPerSeason = solved.executeQuery(GET_SEASON_COUNT_SQL);
+        Map<Object,Object> matchesWon = solved.executeQuery(GET_WINNER_COUNT_SQL);
+        Map<Object,Object> extraRuns = solved.executeQuery(GET_EXTRA_RUNS_SQL);
+        Map<Object,Object> economicBowlers = solved.executeQuery(GET_ECONOMIC_BOWLER_SQL);
 
 
 
@@ -49,9 +45,6 @@ public class Main {
             System.out.println();
         }
 
-
-        conn.close();
-        stmt.close();
 
     }
 }
