@@ -3,10 +3,7 @@ package com.company;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.company.Constants.*;
 public class Main {
@@ -18,10 +15,10 @@ public class Main {
         // Solving all scenarios
         SolveScenarios solved = new SolveScenarios();
 
-        Map<Object,Object> matchesPlayedPerSeason = solved.executeQuery(GET_SEASON_COUNT_SQL);
-        Map<Object,Object> matchesWon = solved.executeQuery(GET_WINNER_COUNT_SQL);
-        Map<Object,Object> extraRuns = solved.executeQuery(GET_EXTRA_RUNS_SQL);
-        Map<Object,Object> economicBowlers = solved.executeQuery(GET_ECONOMIC_BOWLER_SQL);
+        Map<Object,Object> matchesPlayedPerSeason = solved.executeQuery(GET_SEASON_COUNT_SQL );
+        Map<Object,Object> matchesWon = solved.executeQuery(GET_WINNER_COUNT_SQL );
+        Map<Object,Object> extraRuns = solved.executeQuery(GET_EXTRA_RUNS_SQL, EXTRA_RUNS_YEAR);
+        Map<Object,Object> economicBowlers = solved.executeQuery(GET_ECONOMIC_BOWLER_SQL, ECONOMIC_BOWLER_YEAR);
 
 
 

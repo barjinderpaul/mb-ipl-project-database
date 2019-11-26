@@ -71,16 +71,17 @@ public class Constants {
     public static final String ID_COLUMN = "id";
     public static final String MATCH_ID_COLUMN = "match_id";
     public static final String WINNER_COLUMN = "winner";
+    public static final Integer EMPTY_INTEGER = null;
 
 
     public static final String GET_SEASON_COUNT_SQL = "select "+SEASON_COLUMN+", count("+SEASON_COLUMN+") as winnings from "+MATCH_TABLE_NAME+" group by "+SEASON_COLUMN+";";
 
     public static final String GET_WINNER_COUNT_SQL = "select "+WINNER_COLUMN+", count("+WINNER_COLUMN+") from "+MATCH_TABLE_NAME+" group by "+WINNER_COLUMN+";";
 
-    public static final String GET_EXTRA_RUNS_SQL = "select "+BOWLING_TEAM_COLUMN+", sum("+EXTRA_RUNS_COLUMN+") from "+DELIVERY_TABLE_NAME+" join "+MATCH_TABLE_NAME+" on "+DELIVERY_TABLE_NAME+"."+MATCH_ID_COLUMN+" = "+MATCH_TABLE_NAME+"."+ID_COLUMN+" where "+SEASON_COLUMN+" = "+EXTRA_RUNS_YEAR+" group by "+BOWLING_TEAM_COLUMN+";";
+    public static final String GET_EXTRA_RUNS_SQL = "select "+BOWLING_TEAM_COLUMN+", sum("+EXTRA_RUNS_COLUMN+") from "+DELIVERY_TABLE_NAME+" join "+MATCH_TABLE_NAME+" on "+DELIVERY_TABLE_NAME+"."+MATCH_ID_COLUMN+" = "+MATCH_TABLE_NAME+"."+ID_COLUMN+" where "+SEASON_COLUMN+" = ? group by "+BOWLING_TEAM_COLUMN+";";
 
     public static final String GET_ECONOMIC_BOWLER_SQL = "select "+BOWLER_COLUMN+", sum("+TOTAL_RUNS_COLUMN+")/(count("+BALL_COLUMN+")/"+BALLS_PER_OVER+") as economy from "+DELIVERY_TABLE_NAME+" join "+MATCH_TABLE_NAME+" " +
-            "on "+DELIVERY_TABLE_NAME+"."+MATCH_ID_COLUMN+" = "+MATCH_TABLE_NAME+"."+ID_COLUMN+" where "+SEASON_COLUMN+" = "+ECONOMIC_BOWLER_YEAR+" group by "+BOWLER_COLUMN+" " +
+            "on "+DELIVERY_TABLE_NAME+"."+MATCH_ID_COLUMN+" = "+MATCH_TABLE_NAME+"."+ID_COLUMN+" where "+SEASON_COLUMN+" = ? group by "+BOWLER_COLUMN+" " +
             "order by economy asc limit 5;";
 
     public static final String QUESTION1 = "Number of matches played per year of all the years in IPL.";

@@ -1,32 +1,52 @@
 package com.company;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 
 import static com.company.Constants.*;
 
 public class SolveScenarios {
 
-    public HashMap<Object, Object> executeQuery(String query) throws SQLException {
-        // creating connection with database
-        Connection conn = new ConnectDB().getConnection();
-        Statement stmt = conn.createStatement();
+    private HashMap<Object,Object> getResults(PreparedStatement preparedStatement) throws SQLException {
+        HashMap<Object, Object> results = new HashMap<>();
 
-        HashMap<Object, Object> result = new HashMap<>();
-        ResultSet rs = stmt.executeQuery(query);
+        ResultSet rs = preparedStatement.executeQuery();
         while (rs.next()) {
             Object columnOne = rs.getObject(1);
             Object columnTwo = rs.getObject(2);
-            result.put(columnOne, columnTwo);
+            results.put(columnOne, columnTwo);
         }
+        rs.close();
+        return results;
+
+    }
+
+    public HashMap<Object, Object> executeQuery(String query) throws SQLException {
+        // creating connection with database
+        Connection connection = new ConnectDB().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        HashMap<Object, Object> result = getResults(preparedStatement);
 
         // closing connections;
-        rs.close();
-        stmt.close();
-        conn.close();
+        preparedStatement.close();
+        connection.close();
+
+        return result;
+    }
+
+
+    public HashMap<Object, Object> executeQuery(String query, Integer YEAR_PARAMETER) throws SQLException {
+        // creating connection with database
+        Connection connection = new ConnectDB().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,YEAR_PARAMETER);
+
+        HashMap<Object, Object> result = getResults(preparedStatement);
+
+        // closing connections;
+        preparedStatement.close();
+        connection.close();
 
         return result;
     }
